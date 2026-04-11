@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Resumes</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Skills</th>
+            <th>Experience</th>
+            <th>Score</th>
+            <th>Recommended Companies</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for resume in resumes %}
+        <tr>
+            <td>{{ resume['name'] }}</td>
+            <td>{{ resume['email'] }}</td>
+            <td>{{ resume['skills'] }}</td>
+            <td>{{ resume['experience'] }}</td>
+            <td>{{ resume['score'] }}</td>
+            <td>{{ resume['recommended_companies'] }}</td>
+            <td>
+                <a href="{{ url_for('add_application', resume_id=resume['id']) }}" class="btn btn-sm btn-success">Add Application</a>
+                <a href="{{ url_for('view_applications', resume_id=resume['id']) }}" class="btn btn-sm btn-info">View Applications</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

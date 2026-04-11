@@ -1,0 +1,69 @@
+/* ===== GLOBAL ===== */
+body {
+    background: linear-gradient(120deg, #f6f9ff, #e9f0ff);
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background: linear-gradient(90deg, #4e54c8, #8f94fb);
+}
+
+/* ===== CARDS ===== */
+.card {
+    border-radius: 15px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+/* ===== HEADERS ===== */
+.card-header {
+    font-weight: bold;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background: linear-gradient(90deg, #4e54c8, #8f94fb);
+    border: none;
+}
+
+.btn-success {
+    background: linear-gradient(90deg, #11998e, #38ef7d);
+    border: none;
+}
+
+.btn-warning {
+    background: linear-gradient(90deg, #f7971e, #ffd200);
+    border: none;
+}
+
+/* ===== TABLE ===== */
+.table thead {
+    background: linear-gradient(90deg, #4e54c8, #8f94fb);
+    color: white;
+}
+
+/* ===== BADGES ===== */
+.badge {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+}
+
+/* ===== PROGRESS BAR ===== */
+.progress {
+    height: 22px;
+    border-radius: 20px;
+}
+
+.progress-bar {
+    font-weight: bold;
+}
+
+/* ===== FORM ===== */
+.form-control, .form-select {
+    border-radius: 10px;
+}

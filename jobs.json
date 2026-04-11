@@ -1,0 +1,10 @@
+[
+    {"title": "Python Developer", "company": "TCS", "skills": ["python", "flask", "sql"], "min_experience": 2, "location": "Bangalore"},
+    {"title": "Backend Engineer", "company": "Infosys", "skills": ["python", "ml"], "min_experience": 4, "location": "Pune"},
+    {"title": "Flask Developer", "company": "Cognizant", "skills": ["python", "flask"], "min_experience": 3, "location": "Chennai"},
+    {"title": "Data Analyst", "company": "Wipro", "skills": ["python", "sql"], "min_experience": 1, "location": "Hyderabad"},
+    {"title": "Cloud Engineer", "company": "Accenture", "skills": ["python", "cloud"], "min_experience": 3, "location": "Bangalore"},
+    {"title": "Java Developer", "company": "HCL", "skills": ["java", "spring", "sql"], "min_experience": 2, "location": "Noida"},
+    {"title": "Full Stack Developer", "company": "Cognizant", "skills": ["python", "flask", "sql"], "min_experience": 3, "location": "Bangalore"},
+    {"title": "Software Engineer", "company": "Tech Mahindra", "skills": ["python", "flask"], "min_experience": 1, "location": "Hyderabad"}
+]

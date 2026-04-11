@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Resume Tracker Management System{% endblock %}
+
+{% block content %}
+<!-- Full Page Landing -->
+<div class="container-fluid text-center py-5" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); min-height: 100vh;">
+
+    <!-- Main Title -->
+    <h1 class="display-2 fw-bold text-white mb-3" style="text-shadow: 3px 3px 7px rgba(0,0,0,0.3);">
+        Resume Tracker Management System
+    </h1>
+    <p class="lead text-white mb-5" style="font-size: 1.5rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
+        Upload resumes, track applications, and get recommended jobs — all in one place!
+    </p>
+
+    <!-- Hero Image -->
+    <div class="mb-5">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Resume Icon" width="200">
+    </div>
+
+    <!-- Enter Dashboard Button -->
+    <a href="{{ url_for('index') }}" class="btn btn-gradient btn-lg px-5 py-3 shadow-lg mb-5"
+       style="background: linear-gradient(90deg, #ff6a00, #ff8c42); color: white; border-radius: 50px; font-weight: bold; font-size: 1.4rem;">
+        🚀 Enter System
+    </a>
+
+    <!-- Feature Cards -->
+    <div class="row justify-content-center g-4">
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-center h-100 shadow-lg" style="background: linear-gradient(135deg, #f6d365 0%, #fda085 100%); border-radius: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">📄 Upload Resumes</h5>
+                    <p class="card-text">Upload your resumes in PDF format and get instant scoring.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-center h-100 shadow-lg" style="background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); border-radius: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">💼 Recommended Jobs</h5>
+                    <p class="card-text">Receive jobs tailored to your skills and experience.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+            <div class="card text-center h-100 shadow-lg" style="background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%); border-radius: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold">📊 Track Applications</h5>
+                    <p class="card-text">Monitor your applications and status in real-time.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <p class="text-white mt-5" style="font-size: 0.9rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.3);">
+        Powered by Resume Tracker Management System
+    </p>
+
+</div>
+
+<style>
+    /* Gradient button hover effect */
+    .btn-gradient {
+        transition: all 0.3s ease-in-out;
+    }
+    .btn-gradient:hover {
+        transform: scale(1.05);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+    }
+
+    /* Card hover effect */
+    .card:hover {
+        transform: translateY(-10px) scale(1.03);
+        transition: all 0.3s ease-in-out;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+</style>
+{% endblock %}

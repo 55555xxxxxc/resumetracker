@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}All Applications{% endblock %}
+
+{% block content %}
+<h3>All Applications</h3>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Resume ID</th>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for app in applications %}
+        <tr>
+            <td>{{ app.resume_id }}</td>
+            <td>{{ app.job_title }}</td>
+            <td>{{ app.company }}</td>
+            <td>{{ app.status }}</td>
+            <td>{{ app.notes }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="5" class="text-center">No applications found</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Dashboard</a>
+{% endblock %}
