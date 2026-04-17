@@ -1,136 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}
-Resume Tracker Management System
-{% endblock %}
+{% block title %}Resume Tracker Management System{% endblock %}
 
 {% block content %}
 
 <h1>Resume Tracker Management System</h1>
 
-<a href="/add">➕ Add New Resume</a>
-
-{% if session.role == 'admin' %}
-|
-<a href="/applications">👁️ View All Applications</a>
-|
-<a href="/delete_all">🗑 Delete All Resumes</a>
-{% endif %}
-
-<hr>
+<a href="/add">Add New Resume</a>
 
 {% if resumes %}
 
 {% for resume in resumes %}
 
-<div style="border:1px solid #ccc; padding:15px; margin-bottom:20px; border-radius:8px;">
+<hr>
 
-<h2>{{ resume.name }} - {{ resume.email }}</h2>
-
-<p><strong>Experience:</strong> {{ resume.experience }} years</p>
-
-<p><strong>Skills:</strong> {{ resume.skills }}</p>
-
-<p><strong>Resume Score:</strong>
-
-{% if resume.score < 40 %}
-<span style="color:red;">{{ resume.score }}%</span>
-
-{% elif resume.score < 70 %}
-<span style="color:orange;">{{ resume.score }}%</span>
-
-{% else %}
-<span style="color:green;">{{ resume.score }}%</span>
-
-{% endif %}
-
-</p>
-
-<h3>Recommended Jobs:</h3>
-
-{% if resume.recommended_companies %}
-
-<ul>
-{% for job in resume.recommended_companies.split(',') %}
-<li>{{ job.strip() }}</li>
-{% endfor %}
-</ul>
-
-{% else %}
-
-<p>No recommendations yet</p>
-
-{% endif %}
-
-<h3>Applications:</h3>
-
-{% if resume.applications %}
-
-<table border="1" cellpadding="8" cellspacing="0" width="100%">
-<tr>
-<th>Job</th>
-<th>Company</th>
-<th>Status</th>
-<th>Notes</th>
-
-{% if session.role == 'admin' %}
-<th>Update</th>
-{% endif %}
-
-</tr>
-
-{% for app in resume.applications %}
-
-<tr>
-
-<td>{{ app.job_title }}</td>
-
-<td>{{ app.company }}</td>
-
-<td>
-
-{% if app.status == 'Hired' %}
-<span style="color:green;">{{ app.status }}</span>
-
-{% elif app.status == 'Rejected' %}
-<span style="color:red;">{{ app.status }}</span>
-
-{% elif app.status == 'Interview' %}
-<span style="color:orange;">{{ app.status }}</span>
-
-{% else %}
-{{ app.status }}
-{% endif %}
-
-</td>
-
-<td>{{ app.notes }}</td>
-
-{% if session.role == 'admin' %}
-<td>
-<a href="/update_application/{{ app.id }}">Update</a>
-</td>
-{% endif %}
-
-</tr>
-
-{% endfor %}
-
-</table>
-
-{% else %}
-
-<p>No applications yet.</p>
-
-{% endif %}
-
-<br>
-
-<a href="/add_application/{{ resume.id }}">➕ Add Application</a>
-|
-<a href="/view_applications/{{ resume.id }}">👁️ View Applications</a>
-
-</div>
+<h2>{{ resume.name }}</h2>
+<p>{{ resume.email }}</p>
+<p>Experience: {{ resume.experience }}</p>
+<p>Skills: {{ resume.skills }}</p>
+<p>Score: {{ resume.score }}%</p>
 
 {% endfor %}
 
