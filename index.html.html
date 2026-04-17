@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block title %}Resume Tracker Management System{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <!-- Page Heading -->
+    <h1 class="text-center display-4 fw-bold mb-4"
+        style="color: #4b0082; text-shadow: 2px 2px 5px rgba(0,0,0,0.3);">
+        Resume Tracker Management System
+    </h1>
+
+    <!-- Top Buttons -->
+    <div class="d-flex justify-content-between mb-4 flex-wrap gap-2">
+        <a href="{{ url_for('add') }}" class="btn btn-gradient btn-lg px-4 py-2 shadow-lg">
+            ➕ Add New Resume
+        </a>
+
+        <div class="d-flex gap-2">
+            {% if session.role == 'admin' %}
+            <a href="{{ url_for('all_applications') }}"
+               class="btn btn-warning btn-lg px-4 py-2 shadow-lg">
+                👁️ View All Applications
+            </a>
+
+            <!-- ✅ ADDED BUTTON (ADMIN ONLY) -->
+            <a href="{{ url_for('delete_all_resumes') }}"
+               class="btn btn-danger btn-lg px-4 py-2 shadow-lg"
+               onclick="return confirm('Are you sure you want to delete ALL resumes?')">
+                🗑 Delete All Resumes
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for resume in resumes %}
+        <div class="col-md-6 col-lg-4">
+            <div class="card shadow-lg h-100"
+                 style="border-radius: 20px;
+                        background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);">
+
+                <div class="card-header text-white fw-bold"
+                     style="background: linear-gradient(135deg, #ff6a00, #ff8c42);
+                            border-radius: 20px 20px 0 0;">
+                    {{ resume.name }} - {{ resume.email }}
+                </div>
+
+                <div class="card-body">
+                    <p><strong>Experience:</strong> {{ resume.experience }} years</p>
+                    <p><strong>Skills:</strong> {{ resume.skills }}</p>
+
+                    <!-- Resume Score -->
+                    <p><strong>Resume Score:</strong></p>
+                    <div class="progress mb-3"
+                         style="height: 25px; border-radius: 12px;">
+                        {% if resume.score < 40 %}
+                        <div class="progress-bar bg-danger"
+                             style="width: {{ resume.score }}%;">
+                             {{ resume.score }}%
+                        </div>
+                        {% elif resume.score < 70 %}
+                        <div class="progress-bar bg-warning text-dark"
+                             style="width: {{ resume.score }}%;">
+                             {{ resume.score }}%
+                        </div>
+                        {% else %}
+                        <div class="progress-bar bg-success"
+                             style="width: {{ resume.score }}%;">
+                             {{ resume.score }}%
+                        </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Recommended Jobs -->
+                    <p><strong>Recommended Jobs:</strong></p>
+                    <ul class="list-group mb-3">
+                        {% if resume.recommended_companies %}
+                            {% for job in resume.recommended_companies.split(',') %}
+                                <li class="list-group-item list-group-item-action">
+                                    {{ job }}
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li class="list-group-item">
+                                No recommendations yet
+                            </li>
+                        {% endif %}
+                    </ul>
+
+                    <!-- Applications -->
+                    <h5 class="fw-bold mb-2">Applications:</h5>
+                    <table class="table table-sm table-hover table-bordered mb-3"
+                           style="background: rgba(255,255,255,0.85);
+                                  border-radius: 12px;">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Job</th>
+                                <th>Company</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                                {% if session.role == 'admin' %}
+                                <th>Update</th>
+                                {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for app in resume.applications %}
+                            <tr>
+                                <td>{{ app.job_title }}</td>
+                                <td>{{ app.company }}</td>
+                                <td>
+                                    {% if app.status == 'Hired' %}
+                                        <span class="badge bg-success">{{ app.status }}</span>
+                                    {% elif app.status == 'Rejected' %}
+                                        <span class="badge bg-danger">{{ app.status }}</span>
+                                    {% elif app.status == 'Interview' %}
+                                        <span class="badge bg-warning text-dark">{{ app.status }}</span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">{{ app.status }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ app.notes }}</td>
+
+                                {% if session.role == 'admin' %}
+                                <td>
+                                    <form method="POST"
+                                          action="{{ url_for('update_application', app_id=app.id) }}">
+                                        <select name="status"
+                                                class="form-select form-select-sm mb-1">
+                                            <option value="Applied" {% if app.status=='Applied' %}selected{% endif %}>Applied</option>
+                                            <option value="Interview" {% if app.status=='Interview' %}selected{% endif %}>Interview</option>
+                                            <option value="Rejected" {% if app.status=='Rejected' %}selected{% endif %}>Rejected</option>
+                                            <option value="Hired" {% if app.status=='Hired' %}selected{% endif %}>Hired</option>
+                                        </select>
+                                        <input type="text"
+                                               name="notes"
+                                               value="{{ app.notes }}"
+                                               class="form-control form-control-sm mb-1"
+                                               placeholder="Update notes">
+                                        <button type="submit"
+                                                class="btn btn-sm btn-primary w-100">
+                                            Update
+                                        </button>
+                                    </form>
+                                </td>
+                                {% endif %}
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">
+                                    No applications yet.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex gap-2 mt-2">
+                        <a href="{{ url_for('add_application', resume_id=resume.id) }}"
+                           class="btn btn-success btn-sm">
+                           ➕ Add Application
+                        </a>
+                        <a href="{{ url_for('view_applications', resume_id=resume.id) }}"
+                           class="btn btn-primary btn-sm">
+                           👁️ View Applications
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center fw-bold mt-5">
+            No resumes uploaded yet.
+        </p>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+/* Gradient button hover */
+.btn-gradient {
+    background: linear-gradient(90deg, #ff6a00, #ff8c42);
+    color: white;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    border-radius: 50px;
+}
+.btn-gradient:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.3);
+}
+
+/* Card hover */
+.card:hover {
+    transform: translateY(-10px) scale(1.03);
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+/* Table rounded corners */
+.table {
+    border-radius: 12px;
+    overflow: hidden;
+}
+</style>
+{% endblock %}

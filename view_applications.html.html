@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Applications{% endblock %}
+
+{% block content %}
+<h2>Applications for Resume ID: {{ resume_id }}</h2>
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Job Title</th>
+            <th>Company</th>
+            <th>Status</th>
+            <th>Notes</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for app in applications %}
+        <tr>
+            <td>{{ app.job_title }}</td>
+            <td>{{ app.company }}</td>
+            <td>
+                {% if app.status == 'Hired' %}
+                    <span class="badge bg-success">{{ app.status }}</span>
+                {% elif app.status == 'Rejected' %}
+                    <span class="badge bg-danger">{{ app.status }}</span>
+                {% elif app.status == 'Interview' %}
+                    <span class="badge bg-warning text-dark">{{ app.status }}</span>
+                {% else %}
+                    <span class="badge bg-secondary">{{ app.status }}</span>
+                {% endif %}
+            </td>
+            <td>{{ app.notes }}</td>
+        </tr>
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">No applications yet.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{{ url_for('index') }}" class="btn btn-primary mt-3">Back to Dashboard</a>
+{% endblock %}
