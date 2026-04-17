@@ -1,31 +1,33 @@
 {% extends "base.html" %}
 
-{% block title %}Resume Tracker Management System{% endblock %}
+{% block title %}Resume Tracker{% endblock %}
 
 {% block content %}
 
 <h1>Resume Tracker Management System</h1>
 
-<a href="/add">Add New Resume</a>
-
-{% if resumes %}
-
-{% for resume in resumes %}
+<a href="/add">➕ Add New Resume</a>
 
 <hr>
 
+{% for resume in resumes %}
+
 <h2>{{ resume.name }}</h2>
-<p>{{ resume.email }}</p>
+
+<p>Email: {{ resume.email }}</p>
+
 <p>Experience: {{ resume.experience }}</p>
+
 <p>Skills: {{ resume.skills }}</p>
+
 <p>Score: {{ resume.score }}%</p>
 
-{% endfor %}
+<hr>
 
 {% else %}
 
 <p>No resumes uploaded yet.</p>
 
-{% endif %}
+{% endfor %}
 
 {% endblock %}
